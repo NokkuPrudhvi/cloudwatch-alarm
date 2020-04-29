@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "cpualarm" {
-    alarm_name                = "tf-DB-CPUAlarm"
+    alarm_name                = format("tf-%s-%s-%s-DB-CPUAlarm", var.service, var.env_name ,var.region_name)
     alarm_description         = "This metric monitors RDS cpu utilization"
 
     comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -31,7 +31,7 @@ resource "aws_cloudwatch_metric_alarm" "cpualarm" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "diskalarm" {
-    alarm_name                = "tf-DB-DiskAlarm"
+    alarm_name                = format("tf-%s-%s-%s-DB-DiskAlarm", var.service, var.env_name ,var.region_name)
     alarm_description         = "This metric monitors RDS Disk utilization"
 
     comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -64,7 +64,7 @@ resource "aws_cloudwatch_metric_alarm" "diskalarm" {
 
 
 resource "aws_cloudwatch_metric_alarm" "FreeableMemory" {
-    alarm_name                = "tf-DB-FreeableMemory"
+    alarm_name                = format("tf-%s-%s-%s-DB-FreeableMemory", var.service, var.env_name ,var.region_name)
     alarm_description         = "This metric monitors FreeableMemory utilization"
 
     comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -96,7 +96,7 @@ resource "aws_cloudwatch_metric_alarm" "FreeableMemory" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "WriteIOPS" {
-    alarm_name                = "tf-DB-WriteIOPS"
+    alarm_name                = format("tf-%s-%s-%s-DB-WriteIOPS", var.service, var.env_name ,var.region_name)
     alarm_description         = "This metric monitors WriteIOPS utilization"
 
     comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -127,9 +127,8 @@ resource "aws_cloudwatch_metric_alarm" "WriteIOPS" {
     }
 }
 
-
 resource "aws_cloudwatch_metric_alarm" "WriteLatency" {
-    alarm_name                = "tf-DB-WriteLatency"
+    alarm_name                = format("tf-%s-%s-%s-DB-WriteLatency", var.service, var.env_name ,var.region_name)
     alarm_description         = "This metric monitors WriteLatency utilization"
 
     comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -160,34 +159,34 @@ resource "aws_cloudwatch_metric_alarm" "WriteLatency" {
     }
 }
 
-resource "aws_cloudwatch_metric_alarm" "SwapUsage" {
-    alarm_name                = "tf-DB-SwapUsage"
-    alarm_description         = "This metric monitors SwapUsage utilization"
+# resource "aws_cloudwatch_metric_alarm" "SwapUsage" {
+#     alarm_name                = format("tf-%s-%s-%s-DB-SwapUsage", var.service, var.env_name ,var.region_name)
+#     alarm_description         = "This metric monitors SwapUsage utilization"
 
-    comparison_operator       = "GreaterThanOrEqualToThreshold"
-    threshold                 = var.SwapUsage
+#     comparison_operator       = "GreaterThanOrEqualToThreshold"
+#     threshold                 = var.SwapUsage
 
-    datapoints_to_alarm       = var.datapoints_to_alarm
-    evaluation_periods        = var.evaluation_periods   
-    insufficient_data_actions = []
-    treat_missing_data        = "missing"
+#     datapoints_to_alarm       = var.datapoints_to_alarm
+#     evaluation_periods        = var.evaluation_periods   
+#     insufficient_data_actions = []
+#     treat_missing_data        = "missing"
 
-    actions_enabled           = "true"
-    alarm_actions             = [module.sns_topic.this_sns_topic_arn]
-    ok_actions                = [module.sns_topic.this_sns_topic_arn]
+#     actions_enabled           = "true"
+#     alarm_actions             = [module.sns_topic.this_sns_topic_arn]
+#     ok_actions                = [module.sns_topic.this_sns_topic_arn]
 
-    metric_query {
-        id = "f1"
-        return_data = "true"
-        metric {
-            metric_name     = "SwapUsage"
-            namespace       = "AWS/RDS"
-            period          = var.period
-            stat            = "Average"
-            unit            = "Bytes"
-            dimensions = {
-                DBInstanceIdentifier = var.db_instance_identifier
-            }
-        }
-    }
-}
+#     metric_query {
+#         id = "f1"
+#         return_data = "true"
+#         metric {
+#             metric_name     = "SwapUsage"
+#             namespace       = "AWS/RDS"
+#             period          = var.period
+#             stat            = "Average"
+#             unit            = "Bytes"
+#             dimensions = {
+#                 DBInstanceIdentifier = var.db_instance_identifier
+#             }
+#         }
+#     }
+# }

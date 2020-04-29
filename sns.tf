@@ -2,17 +2,17 @@ module "sns_topic" {
   source  = "terraform-aws-modules/sns/aws"
   version = "~> 2.0"
   
-  name  = format("%s-%s-sns", var.project_name, var.env_name)
+  name  = format("tf-%s-%s-%s-sns", var.service, var.env_name, var.region_name)
   delivery_policy = <<EOF
   {
     "http": {
       "defaultHealthyRetryPolicy": {
-        "minDelayTarget": 20,
+        "minDelayTarget": 1,
         "maxDelayTarget": 20,
-        "numRetries": 3,
-        "numMaxDelayRetries": 0,
-        "numNoDelayRetries": 0,
-        "numMinDelayRetries": 0,
+        "numRetries": 50,
+        "numNoDelayRetries": 3,
+        "numMinDelayRetries": 2,
+        "numMaxDelayRetries": 3,
         "backoffFunction": "linear"
       },
       "disableSubscriptionOverrides": false,
