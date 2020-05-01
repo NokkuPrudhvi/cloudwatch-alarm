@@ -2,7 +2,6 @@
 variable "pagerduty_alerts_endpoint" {
   type    = string
   description = "Pagerduty HHTPS URL for pushing alarms"
-  default = "xxx"
 }
 
 # Name of ELB to monitor
@@ -11,6 +10,9 @@ variable "lb_name" {
   description = "Load Balancer name for which we need to configure alarms"
   default = "awseb-e-y-AWSEBLoa-TZOVV38CX307"
 }
+
+# DEV - awseb-e-y-AWSEBLoa-TZOVV38CX307
+# PRD - awseb-e-f-AWSEBLoa-RBEWUEOC90LX
 
 # Name of DB to monitor
 variable "db_instance_identifier" {

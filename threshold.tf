@@ -7,6 +7,18 @@ variable "elb5XXPercentage" {
   default = "10"           # 0 =  
 }
 
+variable "elbAverageLatency" {
+  type    = number
+  description = "Latency of connection"
+  default = "10"
+}
+
+variable "elbRequestCount" {
+  type    = number
+  description = "RequestCount ALB"
+  default = "2000"
+}
+
 # ################################################################################
 # # Request count is not important as we have autoscalling
 # ################################################################################
