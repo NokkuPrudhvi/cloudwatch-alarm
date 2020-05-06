@@ -1,7 +1,9 @@
 terraform {
   backend "s3" {
-    bucket = module.aws_s3_bucket.statebucket
-    key    = "dev/virginia/cfalarms"
+    bucket = "tf-gb-terraform-state"
+    key    = "dev/us-east-1/cfalarms/terraform.state"
     region = "us-east-1"
+
+    profile = "opsdevqe"
   }
 }

@@ -63,6 +63,15 @@ variable "period" {
   default = "60"           # Each 
 }
 
+variable "tags" {
+  description = "A mapping of tags to assign to the resource"
+  default = {
+    "Service" = "galaxy-badge"
+    "Stage"     = "dev"
+    "Creator"   = "gajender.s"
+  }
+}
+
 # variable "envHealth" {
 #   type    = number
 #   description = "Check Env Health > 2"

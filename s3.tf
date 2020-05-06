@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "statebucket" {
-  bucket = format("%s-%s-%s-%s-state", var.prefix, var.region_name, var.stage, var.service)
+  bucket = "tf-gb-terraform-state"
   acl    = "private"
   
   versioning {
